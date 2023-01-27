@@ -1,0 +1,260 @@
+{% extends 'wrapper.html' %} {% load static %} {% block content %}
+<!-- Header Area End Here -->
+<!-- Begin Slider With Category Menu Area -->
+<div class="slider-with-banner">
+  <div class="container">
+    <div class="row">
+      <!-- Begin Category Menu Area -->
+      <div class="col-lg-3">
+        <!--Category Menu Start-->
+        <div class="category-menu">
+          <div class="category-heading">
+            <h2 class="categories-toggle"><span>categories</span></h2>
+          </div>
+          <div id="cate-toggle" class="category-menu-list">
+            <ul>
+              {% for category in categories %}
+              <li><a href="#">{{ category }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <!--Category Menu End-->
+      </div>
+      <!-- Category Menu Area End Here -->
+      <!-- Begin Slider Area -->
+      <div class="col-lg-9">
+        <div class="slider-area pt-sm-30 pt-xs-30">
+          <div class="slider-active owl-carousel">
+            {% for banner in banners %}
+            <div class="single-slide align-center-left animation-style-02 bg-4">
+              <div class="slider-progress"></div>
+              <div class="slider-content">
+                <h5>{{ banner.subtitle }}</h5>
+                <h2>{{ banner.title }}</h2>
+                <h3>Starting at <span>{{ banner.text }}</span></h3>
+                <div class="default-btn slide-btn">
+                  <a class="links" href="#">Shopping Now</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- Slider Area End Here -->
+    </div>
+  </div>
+</div>
+<!-- Slider With Category Menu Area End Here -->
+<!-- Begin Li's Static Banner Area -->
+<div class="li-static-banner pt-20 pt-sm-30 pt-xs-30">
+  <div class="container">
+    <div class="row">
+      {% for sub_banner in sub_banners %}
+      <!-- Begin Single Banner Area -->
+      <div class="col-lg-4 col-md-4">
+        <div class="single-banner pb-xs-30">
+          <a href="#">
+            <img src="{{ sub_banner.image.url }}" alt="Banner" />
+          </a>
+        </div>
+      </div>
+      <!-- Single Banner Area End Here -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- ////// -->
+<br />
+<br />
+<section class="product-area li-laptop-product li-smart-phone-product-2 pb-50">
+  <div class="container">
+    <div class="row">
+      <!-- Begin Li's Section Area -->
+      <div class="col-lg-12">
+        <div class="li-section-title">
+          <h2>
+            <span>Smartphone</span>
+          </h2>
+        </div>
+        <div class="row">
+          <div class="product-active owl-carousel">
+            <div class="col-lg-12">
+              {% for product in products %}
+              <!-- single-product-wrap start -->
+              <div class="single-product-wrap">
+                <div class="product-image">
+                  <a href="#">
+                    <img
+                      src="{{ product.poster.url }}"
+                      alt="Li's Product Image"
+                    />
+                  </a>
+                </div>
+                <div class="product_desc">
+                  <div class="product_desc_info">
+                    <div class="product-review">
+                      <h5 class="manufacturer">
+                        <a href="#">{{ product.title }}</a>
+                      </h5>
+                      <div class="rating-box">
+                        <ul class="rating">
+                          <li>{{ product.rating_count }}/</li>
+                          <li>
+                            <i class="fa fa-star-o"></i>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <h4>
+                      <a class="product_name" href="#"
+                        >{{ product.category }}</a
+                      >
+                    </h4>
+                    <div class="price-box">
+                      <span class="new-price">${{ product.get_cost }}</span>
+                      {% if product.discount %}
+                      <s class="new-price">${{ product.cost }}</s>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="add-actions">
+                    <ul class="add-actions-link">
+                      <li class="add-cart active">
+                        <a href="#">Add to cart</a>
+                      </li>
+                      <li>
+                        <a class="links-details" href="#"
+                          ><i class="fa fa-heart-o"></i
+                        ></a>
+                      </li>
+                      <li>
+                        <a href="#" title="quick view" class="quick-view-btn"
+                          ><i class="fa fa-eye"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- single-product-wrap end -->
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Li's Section Area End Here -->
+    </div>
+  </div>
+</section>
+<!-- Li's Smart Phone Product Area End Here -->
+<!-- Begin Li's Static Home Area -->
+<div class="li-static-home">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Begin Li's Static Home Image Area -->
+        <div class="li-static-home-image"></div>
+        <!-- Li's Static Home Image Area End Here -->
+        <!-- Begin Li's Static Home Content Area -->
+        <div class="li-static-home-content">
+          <p>Sale Offer<span>-20% Off</span>This Week</p>
+          <h2>Featured Product</h2>
+          <h2>Meito Accessories 2018</h2>
+          <p class="schedule">
+            Starting at
+            <span> $1209.00</span>
+          </p>
+          <div class="default-btn">
+            <a href="shop-left-sidebar.html" class="links">Shopping Now</a>
+          </div>
+        </div>
+        <!-- Li's Static Home Content Area End Here -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Li's Static Home Area End Here -->
+<!-- Begin Li's Trending Product | Home V2 Area -->
+<section
+  class="product-area li-trending-product li-trending-product-2 pt-60 pb-45"
+>
+  <div class="container">
+    <div class="row">
+      <!-- Begin Li's Tab Menu Area -->
+      <div class="col-lg-12">
+        <div class="li-product-tab li-trending-product-tab">
+          <h2>
+            Trendding Products
+          </h2>
+        </div>
+        <!-- Begin Li's Tab Menu Content Area -->
+        <div class="row mt-50 mb-50">
+          <div class="col-md-3">
+            {% for trend in trendings %}
+            <!-- single-product-wrap start -->
+            <div class="single-product-wrap">
+              <div class="product-image">
+                <a href="#">
+                  <img src="{{ trend.poster.url }}" alt="Li's Product Image" />
+                </a>
+              </div>
+              <div class="product_desc">
+                <div class="product_desc_info">
+                  <div class="product-review">
+                    <h5 class="manufacturer">
+                      <a href="#">{{ trend.title }}</a>
+                    </h5>
+                    <div class="rating-box">
+                      <ul class="rating">
+                        <li>{{ trend.rating_count }}/</li>
+                        <li><i class="fa fa-star-o"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h4>
+                    <a class="product_name" href="#">{{ trend.category }}</a>
+                  </h4>
+                  <div class="price-box">
+                    <span class="new-price">${{ trend.get_cost }}</span>
+                    {% if trend.discount %}
+                    <s class="new-price">${{ trend.cost }}</s>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="add-actions">
+                  <ul class="add-actions-link">
+                    <li class="add-cart active"><a href="#">Add to cart</a></li>
+                    <li>
+                      <a class="links-details" href="wishlist.html"
+                        ><i class="fa fa-heart-o"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        title="quick view"
+                        class="quick-view-btn"
+                        data-toggle="modal"
+                        data-target="#exampleModalCenter"
+                        ><i class="fa fa-eye"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- single-product-wrap end -->
+            {% endfor %}
+          </div>
+        </div>
+        <!-- Tab Menu Content Area End Here -->
+      </div>
+      <!-- Tab Menu Area End Here -->
+    </div>
+  </div>
+</section>
+<!-- Li's Trending Product | Home V2 Area End Here -->
+<!-- Begin Footer Area -->
+{% endblock content %}
