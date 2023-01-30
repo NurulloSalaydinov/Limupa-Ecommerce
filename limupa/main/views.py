@@ -1,8 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, ListView
+from django.db.models import Max, Min, Avg, Count
 from .models import Category, Tag, Brand, Color, Product, Banner, SubBanner, Review
 from .forms import ReviewForm
 
+# Max modeldagi fieldi maksimum qiymatini integer qaytaradi
+# Min modeldagi fieldi minimum qiymatini integer qaytaradi
+# Avg > Average modeldagi fieldi ortacha qiymatini integer qaytaradi
+# Count modeldagi elementlar sonini qaytaradi
 
 # class ProductDetailView(DetailView):
 #     model = Product
@@ -13,6 +18,39 @@ from .forms import ReviewForm
 #         context['related_products'] = Product.objects.filter(category=self.object.category).exclude(id=self.object.id)
 #         context['reviews'] = Review.objects.filter(product=self.object)
 #         return context
+
+class ProductListView(ListView):
+    queryset = Product.objects.order_by('-id')
+    template_name = 'shop.html'
+    context_object_name = 'products'
+    paginate_by = 15
+    
+    def get_queryset(self):
+        queryset = super(ProductListView, self).get_queryset()
+        request = self.request
+        brands = request.GET.getlist('brand')
+        categories = request.GET.getlist('category')
+        sort = request.GET.get('sort')
+        # print(brands)
+        # print(categories)
+        if sort == '-cost':
+            queryset = queryset.annotate(accurate_cost=( Max('cost') * ( 100 - Max('discount') ) / 100 )).order_by('-accurate_cost')
+        elif sort == 'cost':
+            queryset = queryset.annotate(accurate_cost=( Max('cost') * ( 100 - Max('discount') ) / 100 )).order_by('accurate_cost')
+        if brands:
+            queryset = queryset.filter(brand__id__in=brands)
+        if categories:
+            queryset = queryset.filter(category__id__in=categories)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        context['brands'] = Brand.objects.all()
+        context['categories'] = Category.objects.all()
+        context['colors'] = Color.objects.all()
+        context['tags'] = Tag.objects.all()
+        return context
+    
 
 
 def product_detail_view(request, product_slug):
