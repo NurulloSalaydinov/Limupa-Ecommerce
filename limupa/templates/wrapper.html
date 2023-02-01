@@ -129,8 +129,8 @@
                             <!-- Begin Header Middle Right Area -->
                             <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                                 <!-- Begin Header Middle Searchbox Area -->
-                                <form class="hm-searchbox">
-                                    <input type="text" placeholder="Enter your search key ...">
+                                <form action="{% url 'main:shop' %}" class="hm-searchbox">
+                                    <input type="text" placeholder="Enter your search key ..." name="q">
                                     <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                                 </form>
                                 <!-- Header Middle Searchbox Area End Here -->
@@ -204,7 +204,7 @@
                                             <li style="display: none"></li>
                                             <li style="display: none"></li>
                                             <li><a href="/">Home</a></li>
-                                            <li><a href="#">Shop</a></li>
+                                            <li><a href="{% url 'main:shop' %}">Shop</a></li>
                                             <li><a href="#">Blog</a></li>
                                             <li><a href="#">About Us</a></li>
                                             <li><a href="#">Contact</a></li>

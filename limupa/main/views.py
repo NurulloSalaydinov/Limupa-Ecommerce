@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
-from django.db.models import Max, Min, Avg, Count
+from django.db.models import Max, Min, Avg, Count, Q
 from .models import Category, Tag, Brand, Color, Product, Banner, SubBanner, Review
 from .forms import ReviewForm
 
@@ -31,8 +31,12 @@ class ProductListView(ListView):
         brands = request.GET.getlist('brand')
         categories = request.GET.getlist('category')
         sort = request.GET.get('sort')
+        q = request.GET.get('q')
         # print(brands)
         # print(categories)
+        if q:
+            queryset = queryset.filter(Q(title__icontains=q) | Q(description__icontains=q))
+            # queryset = queryset.filter(title__icontains=q,description__icontains=q)
         if sort == '-cost':
             queryset = queryset.annotate(accurate_cost=( Max('cost') * ( 100 - Max('discount') ) / 100 )).order_by('-accurate_cost')
         elif sort == 'cost':
@@ -50,6 +54,7 @@ class ProductListView(ListView):
         context['colors'] = Color.objects.all()
         context['tags'] = Tag.objects.all()
         return context
+
     
 
 

@@ -14,7 +14,7 @@
           <div id="cate-toggle" class="category-menu-list">
             <ul>
               {% for category in categories %}
-              <li><a href="#">{{ category }}</a></li>
+              <li><a href="{% url 'main:shop' %}?category={{ category.id }}">{{ category }}</a></li>
               {% endfor %}
             </ul>
           </div>
@@ -191,8 +191,8 @@
         </div>
         <!-- Begin Li's Tab Menu Content Area -->
         <div class="row mt-50 mb-50">
+          {% for trend in trendings %}
           <div class="col-md-3">
-            {% for trend in trendings %}
             <!-- single-product-wrap start -->
             <div class="single-product-wrap">
               <div class="product-image">
@@ -246,8 +246,8 @@
               </div>
             </div>
             <!-- single-product-wrap end -->
-            {% endfor %}
           </div>
+          {% endfor %}
         </div>
         <!-- Tab Menu Content Area End Here -->
       </div>

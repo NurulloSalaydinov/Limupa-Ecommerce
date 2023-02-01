@@ -78,11 +78,11 @@
               </p>
             </div>
             <div class="single-add-to-cart">
-              <form action="#" class="cart-quantity">
+              <div class="cart-quantity">
                 <div class="quantity">
                   <label>Quantity</label>
                   <div class="cart-plus-minus">
-                    <input class="cart-plus-minus-box" value="1" type="text" />
+                    <input class="cart-plus-minus-box" value="1" id="quantity" type="number" />
                     <div class="dec qtybutton">
                       <i class="fa fa-angle-down"></i>
                     </div>
@@ -91,8 +91,9 @@
                     </div>
                   </div>
                 </div>
-                <button class="add-to-cart" type="submit">Add to cart</button>
-              </form>
+                <button 
+                onclick="AddToCart('{{ object.id }}', document.getElementById('quantity').value), this.style.display = 'none'" class="add-to-cart">Add to cart</button>
+              </div>
             </div>
             <div class="product-additional-info pt-25">
               <a class="wishlist-btn" href="wishlist.html"
@@ -374,6 +375,42 @@
     </div>
   </div>
 </section>
+<script>
+  
+  function AddToCart(product_id, quantity) {
+    var csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+    // console.log(csrf_token)
+    const data = {
+      product_id: product_id,
+      qty: quantity
+    }
+    fetch('/cart/add_to_cart/', {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrf_token
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status == 200) {
+        var div = document.createElement('div')
+        div.style = 'padding: 15px 15px 5px 10px;position: fixed;top: 50px;right: 20px;background: green;border-radius: 5px;font-size: 16px;z-index: 111111;color: white';
+        div.innerHTML = '<h5>Savatchaga qo\'shildi</h5>'
+        document.body.appendChild(div)
+        
+        setTimeout(() => {
+          document.body.removeChild(div)
+        }, 2000)
+        
+      }
+      console.log(data)
+    })
+    .catch(err => console.log(err))
+  }
+  
+  
+</script>
 <!-- Li's Laptop Product Area End Here -->
 <!-- Begin Footer Area -->
 {% endblock content %}
